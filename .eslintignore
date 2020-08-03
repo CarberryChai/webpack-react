@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.idea/
+.vscode/
+yarn-error.log
+npm-debug.log
+yarn.lock
+.DS_Store
+*.sw*
+*.un~
+.eslintcache

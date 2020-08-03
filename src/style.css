@@ -1,0 +1,9 @@
+body {
+  background-color: #fefefe;
+}
+.hello {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background: url('./title2.png') center center no-repeat;
+}
