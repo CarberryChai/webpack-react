@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './app.less'
-export default function App() {
+
+export default function App(): JSX.Element {
   const [count, setCount] = useState(0)
   useEffect(() => {
     document.title = 'React App'
@@ -8,7 +9,7 @@ export default function App() {
   return (
     <div>
       <p>{count}</p>
-      <button className='btn' onClick={() => setCount(count + 1)}>
+      <button type='button' className='btn' onClick={() => setCount(count + 1)}>
         Click
       </button>
     </div>

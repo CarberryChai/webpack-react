@@ -1,7 +1,7 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const common = require('./webpack.common')
 const webpack = require('webpack')
+const common = require('./webpack.common')
 
 const DIST_DIR = path.resolve(__dirname, '../dist')
 
@@ -19,7 +19,7 @@ module.exports = merge(common, {
     contentBase: DIST_DIR,
     publicPath: '/',
     hot: true,
-    open: true,
+    // open: true,
     overlay: true,
     proxy: {
       '/api': {

@@ -2,15 +2,19 @@ const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const htmWebpackPlugin = require('html-webpack-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const WebpackBar = require('webpackbar')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+
 const resolve = url => path.join(__dirname, '..', url)
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   entry: {
     app: resolve('src/index.js'),
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     modules: [resolve('src'), 'node_modules'],
     alias: {
       '@': resolve('src'),
@@ -25,7 +29,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(tsx?|jsx?)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -42,7 +46,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               esModule: true,
-              hmr: process.env.NODE_ENV === 'development',
+              hmr: isDev,
             },
           },
           {
@@ -105,7 +109,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new htmWebpackPlugin({
+    new HTMLWebpackPlugin({
       title: 'React webpack config',
       template: path.resolve(__dirname, '../public/index.html'),
     }),
@@ -113,5 +117,9 @@ module.exports = {
       filename: 'assets/css/[name].[contenthash].css',
     }),
     new ManifestPlugin(),
+    new WebpackBar({
+      name: `正在${isDev ? '启动' : '打包'}`,
+    }),
+    new HardSourceWebpackPlugin(),
   ],
 }
